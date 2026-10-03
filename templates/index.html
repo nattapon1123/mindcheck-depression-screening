@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MindCheck — ระบบคัดกรองภาวะซึมเศร้า</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <!-- ========== SIDEBAR ========== -->
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9.5 2a5.5 5.5 0 00-5.4 6.5A4.5 4.5 0 006 17h1" />
+              <path d="M14.5 2a5.5 5.5 0 015.4 6.5A4.5 4.5 0 0118 17h-1" />
+              <path d="M9 17v2a2 2 0 002 2h2a2 2 0 002-2v-2" />
+              <path d="M9 17a3 3 0 016 0" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <b>MindCheck</b>
+            <span>ระบบคัดกรองภาวะซึมเศร้า</span>
+          </div>
+        </div>
+
+        <nav class="navlist">
+          <a class="active" onclick="goTo('home', this)">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+            หน้าหลัก
+          </a>
+          <a onclick="goTo('form', this)">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M9 2h6a2 2 0 012 2v16a2 2 0 01-2 2H9a2 2 0 01-2-2V4a2 2 0 012-2z"
+              />
+              <line x1="9" y1="8" x2="15" y2="8" />
+              <line x1="9" y1="12" x2="15" y2="12" />
+              <line x1="9" y1="16" x2="12" y2="16" />
+            </svg>
+            แบบประเมิน
+          </a>
+          <a onclick="goTo('result', this)">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M3 3v18h18" />
+              <path d="M7 13l4-4 3 3 5-6" />
+            </svg>
+            ผลการประเมิน
+          </a>
+          <a onclick="goTo('about', this)">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            เกี่ยวกับโครงการ
+          </a>
+        </nav>
+
+        <div class="sidebar-foot">© 2569 MindCheck<br />โครงงาน AI</div>
+      </aside>
+
+      <!-- ========== MAIN ========== -->
+      <main class="main">
+        <!-- ---------- HOME ---------- -->
+        <section id="view-home" class="view active">
+          <div class="topbar"><h1>หน้าหลัก</h1></div>
+          <div class="hero">
+            <h2>ยินดีต้อนรับสู่ MindCheck</h2>
+            <p>
+              ระบบคัดกรองความเสี่ยงภาวะซึมเศร้าเบื้องต้นด้วยเทคโนโลยี Machine
+              Learning
+              แบบประเมินนี้ช่วยให้คุณสำรวจความเสี่ยงเบื้องต้นของภาวะซึมเศร้า
+              เพื่อดูแลสุขภาพจิตของคุณได้อย่างเหมาะสม
+            </p>
+            <button class="btn btn-primary" onclick="goTo('form')">
+              เริ่มทำแบบประเมิน
+            </button>
+          </div>
+        </section>
+
+        <!-- ---------- FORM ---------- -->
+        <section id="view-form" class="view">
+          <div class="topbar"><h1>แบบประเมินความเสี่ยงภาวะซึมเศร้า</h1></div>
+          <div class="layout-grid">
+            <div class="card">
+              <p class="form-section-title">
+                📋 กรุณากรอกข้อมูลและตอบคำถามให้ครบถ้วน
+              </p>
+              <p class="form-section-sub">
+                ข้อมูลของคุณจะไม่ถูกเก็บหรือเปิดเผยตัวตน ใช้เวลาประมาณ 2-3 นาที
+              </p>
+              <div class="form-counter">📝 ทั้งหมด 10 ข้อ</div>
+
+              <!-- ===== หมวด 1: ข้อมูลทั่วไป ===== -->
+              <div class="q-group-head">
+                <span class="q-group-num">1</span>
+                <div>
+                  <div class="q-group-title">ข้อมูลทั่วไป</div>
+                  <div class="q-group-sub">ข้อมูลพื้นฐานของคุณ</div>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">👤</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >เพศของคุณคืออะไร <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    ใช้เพื่อวิเคราะห์ความเสี่ยงตามกลุ่มประชากรเท่านั้น
+                  </p>
+                  <select id="gender">
+                    <option value="Female">หญิง</option>
+                    <option value="Male">ชาย</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">🎂</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >อายุของคุณ <span class="req">*</span></label
+                  >
+                  <p class="q-desc">กรอกอายุปัจจุบันของคุณเป็นตัวเลข (ปี)</p>
+                  <input type="number" id="age" min="15" max="60" value="20" />
+                </div>
+              </div>
+
+              <!-- ===== หมวด 2: การเรียนและการใช้ชีวิต ===== -->
+              <div class="q-group-head">
+                <span class="q-group-num">2</span>
+                <div>
+                  <div class="q-group-title">
+                    การเรียนและการใช้ชีวิตประจำวัน
+                  </div>
+                  <div class="q-group-sub">
+                    พฤติกรรมในช่วง 2 สัปดาห์ที่ผ่านมา
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">📚</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >ระดับความกดดันด้านการเรียนของคุณอยู่ที่เท่าไร
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    1 หมายถึงแทบไม่กดดันเลย และ 5 หมายถึงกดดันมากที่สุด
+                  </p>
+                  <div class="likert-options" data-field="academicPressure">
+                    <button type="button" data-val="1">
+                      1<small>น้อยมาก</small>
+                    </button>
+                    <button type="button" data-val="2">2</button>
+                    <button type="button" data-val="3" class="selected">
+                      3<small>ปานกลาง</small>
+                    </button>
+                    <button type="button" data-val="4">4</button>
+                    <button type="button" data-val="5">
+                      5<small>มากที่สุด</small>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">😊</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >คุณพึงพอใจกับการเรียนของคุณมากแค่ไหน
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    1 หมายถึงไม่พอใจเลย และ 5 หมายถึงพอใจมากที่สุด
+                  </p>
+                  <div class="likert-options" data-field="studySatisfaction">
+                    <button type="button" data-val="1">
+                      1<small>ไม่พอใจ</small>
+                    </button>
+                    <button type="button" data-val="2">2</button>
+                    <button type="button" data-val="3" class="selected">
+                      3<small>ปานกลาง</small>
+                    </button>
+                    <button type="button" data-val="4">4</button>
+                    <button type="button" data-val="5">
+                      5<small>พอใจมาก</small>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">😴</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >โดยเฉลี่ยคุณนอนหลับคืนละกี่ชั่วโมง
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    เลือกช่วงเวลาที่ใกล้เคียงกับพฤติกรรมการนอนของคุณมากที่สุด
+                  </p>
+                  <select id="sleep">
+                    <option value="Less than 5 hours">
+                      น้อยกว่า 5 ชั่วโมง
+                    </option>
+                    <option value="5-6 hours" selected>5–6 ชั่วโมง</option>
+                    <option value="7-8 hours">7–8 ชั่วโมง</option>
+                    <option value="More than 8 hours">มากกว่า 8 ชั่วโมง</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">🍽️</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >พฤติกรรมการรับประทานอาหารของคุณเป็นอย่างไร
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    ประเมินจากความสม่ำเสมอและคุณภาพของมื้ออาหารโดยรวม
+                  </p>
+                  <select id="diet">
+                    <option value="Healthy">ดีต่อสุขภาพ</option>
+                    <option value="Moderate" selected>ปานกลาง</option>
+                    <option value="Unhealthy">ไม่ค่อยดี</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">⏰</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >คุณใช้เวลาเรียนหรือทำงานกี่ชั่วโมงต่อวัน
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    นับรวมทั้งเวลาในห้องเรียน ติวหนังสือ หรือทำงานพิเศษ
+                  </p>
+                  <input
+                    type="number"
+                    id="studyHours"
+                    min="0"
+                    max="16"
+                    value="6"
+                  />
+                </div>
+              </div>
+
+              <!-- ===== หมวด 3: ปัจจัยด้านจิตใจและภูมิหลัง ===== -->
+              <div class="q-group-head">
+                <span class="q-group-num">3</span>
+                <div>
+                  <div class="q-group-title">ปัจจัยด้านจิตใจและภูมิหลัง</div>
+                  <div class="q-group-sub">
+                    คำถามสุดท้ายแล้ว เกือบเสร็จแล้วครับ
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">💰</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >ระดับความเครียดด้านการเงินของคุณอยู่ที่เท่าไร
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    1 หมายถึงแทบไม่เครียดเรื่องการเงินเลย และ 5
+                    หมายถึงเครียดมากที่สุด
+                  </p>
+                  <div class="likert-options" data-field="financialStress">
+                    <button type="button" data-val="1">
+                      1<small>น้อยมาก</small>
+                    </button>
+                    <button type="button" data-val="2">2</button>
+                    <button type="button" data-val="3" class="selected">
+                      3<small>ปานกลาง</small>
+                    </button>
+                    <button type="button" data-val="4">4</button>
+                    <button type="button" data-val="5">
+                      5<small>มากที่สุด</small>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">👪</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >คนในครอบครัวของคุณเคยมีประวัติปัญหาสุขภาพจิตหรือไม่
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    นับรวมญาติสายตรง เช่น พ่อ แม่ พี่น้อง หากทราบข้อมูล
+                  </p>
+                  <select id="familyHistory">
+                    <option value="No">ไม่มี</option>
+                    <option value="Yes">มี</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="q-card">
+                <div class="q-icon">🎓</div>
+                <div class="q-body">
+                  <label class="q-label"
+                    >เกรดเฉลี่ยสะสม (CGPA) ของคุณอยู่ที่เท่าไร
+                    <span class="req">*</span></label
+                  >
+                  <p class="q-desc">
+                    กรอกค่าในช่วง 0 ถึง 10 ตามระบบของสถาบันคุณ
+                  </p>
+                  <input
+                    type="number"
+                    id="cgpa"
+                    min="0"
+                    max="10"
+                    step="0.01"
+                    value="7.50"
+                  />
+                </div>
+              </div>
+
+              <p class="form-note">
+                * กรุณาตอบคำถามให้ครบทุกข้อ เพื่อให้ผลประเมินมีความแม่นยำมากขึ้น
+              </p>
+              <p id="formError" class="form-error"></p>
+              <div class="form-actions">
+                <button class="btn btn-ghost" onclick="goTo('home')">
+                  ย้อนกลับ
+                </button>
+                <button
+                  class="btn btn-primary"
+                  id="submitBtn"
+                  onclick="computeResult()"
+                >
+                  ประเมินความเสี่ยง →
+                </button>
+              </div>
+            </div>
+
+            <!-- side panels -->
+            <div>
+              <div class="panel warn">
+                <h3>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                    />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" /></svg
+                  >คำเตือน
+                </h3>
+                <p>
+                  ผลการประเมินนี้เป็นเพียงการคัดกรองเบื้องต้น
+                  ไม่ใช่การวินิจฉัยทางการแพทย์ หากคุณมีความรู้สึกไม่สบายใจ
+                  หรือมีอาการรุนแรง ควรปรึกษาจิตแพทย์หรือนักจิตวิทยาโดยเร็ว
+                </p>
+              </div>
+              <div class="panel help">
+                <h3>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                    /></svg
+                  >ช่องทางความช่วยเหลือ
+                </h3>
+                <ul>
+                  <li>สายด่วนสุขภาพจิต 1323 (ฟรี ตลอด 24 ชม.)</li>
+                  <li>โรงพยาบาลใกล้บ้าน / คลินิกจิตเวช</li>
+                  <li>เว็บไซต์กรมสุขภาพจิต www.dmh.go.th</li>
+                </ul>
+              </div>
+              <div class="panel encourage">
+                <b>ดูแลใจ...ไปด้วยกัน</b>
+                "หากคุณรู้สึกเหนื่อย อย่าลืมว่าคุณไม่ได้สู้คนเดียว"
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- RESULT ---------- -->
+        <section id="view-result" class="view">
+          <div class="topbar"><h1>ผลการประเมิน</h1></div>
+          <div class="layout-grid">
+            <div class="card">
+              <span id="resultBadge" class="result-badge low"
+                >ความเสี่ยงต่ำ</span
+              >
+              <h2 id="resultTitle" class="result-title">
+                ตอนนี้ดูเหมือนคุณกำลังไปได้ดี
+              </h2>
+              <p id="resultDesc" class="result-desc">
+                จากคำตอบของคุณ ปัจจัยเสี่ยงโดยรวมอยู่ในระดับต่ำ
+              </p>
+              <div class="bar-track">
+                <div
+                  id="resultBar"
+                  class="bar-fill low"
+                  style="width: 20%"
+                ></div>
+              </div>
+              <div class="bar-label">
+                <span>ต่ำ</span><span id="resultPct">20%</span><span>สูง</span>
+              </div>
+              <button class="btn btn-ghost" onclick="goTo('form')">
+                ประเมินอีกครั้ง
+              </button>
+            </div>
+            <div class="panel help" id="resourceBox" style="display: none">
+              <h3>ช่องทางความช่วยเหลือ</h3>
+              <ul>
+                <li>สายด่วนสุขภาพจิต 1323</li>
+                <li>ศูนย์ให้คำปรึกษาของมหาวิทยาลัย</li>
+                <li>พูดคุยกับคนที่คุณไว้ใจ</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- ABOUT ---------- -->
+        <section id="view-about" class="view">
+          <div class="topbar"><h1>เกี่ยวกับโครงการ</h1></div>
+          <div class="card">
+            <p>
+              MindCheck เป็นโครงงาน AI
+              ที่พัฒนาขึ้นเพื่อคัดกรองความเสี่ยงภาวะซึมเศร้าเบื้องต้น
+              โดยใช้โมเดล Machine Learning
+              ที่ฝึกฝนจากชุดข้อมูลพฤติกรรมและปัจจัยเสี่ยงของนักศึกษา
+              ระบบนี้เป็นเพียงเครื่องมือคัดกรองเบื้องต้น
+              ไม่สามารถใช้แทนการวินิจฉัยทางการแพทย์ได้
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
